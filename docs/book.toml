@@ -1,0 +1,6 @@
+[book]
+authors = ["Mehran Mozaffari"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Comprehensive Algorithmic Trading and Crypto Bot Development"

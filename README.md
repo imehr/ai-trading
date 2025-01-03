@@ -4,6 +4,19 @@ A sophisticated document processing system designed to analyze, categorize, and 
 
 **Author**: Mehran Mozaffari
 
+## Documentation
+
+The complete documentation is available as an online book at:
+https://imehr.github.io/ai-trading/
+
+### Local Development
+To view the documentation locally:
+1. Install mdBook: `cargo install mdbook`
+2. Navigate to the docs directory: `cd docs`
+3. Serve the book: `mdbook serve --open`
+
+The documentation will be available at `http://localhost:3000`
+
 ## Overview
 
 This system processes trading-related content through six distinct analytical steps, generating structured insights and maintaining a comprehensive knowledge base. Each step focuses on different aspects of the content, from initial analysis to trend identification.
