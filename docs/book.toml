@@ -6,18 +6,23 @@ src = "src"
 title = "Comprehensive Algorithmic Trading and Crypto Bot Development"
 
 [output.html]
-default-theme = "light"
+default-theme = "navy"
 preferred-dark-theme = "navy"
 git-repository-url = "https://github.com/imehr/ai-trading"
 git-repository-icon = "fa-github"
 edit-url-template = "https://github.com/imehr/ai-trading/edit/main/docs/{path}"
 site-url = "/ai-trading/"
-cname = "ai-trading.imehr.dev"
+additional-css = ["theme/custom.css"]
+additional-js = ["theme/custom.js"]
 
 [output.html.playground]
 editable = true
 copyable = true
 copy-js = true
+
+[output.html.fold]
+enable = true
+level = 1
 
 [output.html.search]
 enable = true
@@ -29,3 +34,7 @@ boost-hierarchy = 1
 boost-paragraph = 1
 expand = true
 heading-split-level = 3
+
+[preprocessor.index]
+
+[preprocessor.links]
