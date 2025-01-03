@@ -1,0 +1,240 @@
+# AI Trading Content Analysis System
+
+## User Input Parameters
+input_folder: ""  # User must specify input folder path
+output_folder: "" # User must specify output folder path
+archive_enabled: false # User must specify if archiving is needed
+
+## File Management Rules
+folder_structure:
+  - step1-analysis:
+      individual_files: "{input_filename}_analysis.md"
+      consolidated_file: "analysis.md"
+  - step2-tech:
+      individual_files: "{input_filename}_tech.md"
+      consolidated_file: "tech_stack.md"
+  - step3-resources:
+      individual_files: "{input_filename}_resources.md"
+      consolidated_file: "resources.md"
+  - step4-strategies:
+      individual_files: "{input_filename}_strategies.md"
+      consolidated_file: "strategies.md"
+  - step5-curriculum:
+      individual_files: "{input_filename}_curriculum.md"
+      consolidated_file: "curriculum.md"
+  - step6-trends:
+      individual_files: "{input_filename}_trends.md"
+      consolidated_file: "trends.md"
+
+context_management:
+  enabled: true
+  context_file: "context.md"
+  update_rules:
+    - check_existence: true
+    - update_on_changes: true
+    - sections:
+      - overview
+      - technical_implementation
+      - resources_and_tools
+      - trading_strategies
+      - learning_curriculum
+      - market_trends
+      - implementation_guidelines
+      - resource_requirements
+  format: |
+    # AI Trading Content Analysis Context
+
+    ## Overview
+    [Summary of analyzed content]
+
+    ## Technical Implementation (Step 2)
+    [Technical details from step2-tech]
+
+    ## Resources and Tools (Step 3)
+    [Resource information from step3-resources]
+
+    ## Trading Strategies (Step 4)
+    [Strategy details from step4-strategies]
+
+    ## Learning Curriculum (Step 5)
+    [Curriculum information from step5-curriculum]
+
+    ## Market Trends (Step 6)
+    [Trend analysis from step6-trends]
+
+    ## Implementation Guidelines
+    [Implementation best practices and guidelines]
+
+    ## Resource Requirements
+    [Required resources and infrastructure]
+
+archive_settings:
+  enabled: "{archive_enabled}"
+  archive_folder_format: "archive_{timestamp}"
+  files_to_archive: ["*.md", "!analysis.md", "!tech_stack.md", "!resources.md", "!strategies.md", "!curriculum.md", "!trends.md", "!context.md"]
+
+## Logging Rules
+process_log:
+  enabled: true
+  location: "{output_folder}/process_log.md"
+  format: |
+    ## Processing Overview
+    - Input Folder: {input_folder}
+    - Output Folder: {output_folder}
+    - Processing Start: {start_date}
+    - Archive Enabled: {archive_enabled}
+
+    ## Processed Files
+    {file_number}. "{file_name}"
+       - Status: ✅ Processed
+       - Date: {date}
+       - Generated Files:
+         * step1-analysis/{input_filename}_analysis.md
+         * step2-tech/{input_filename}_tech.md
+         * step3-resources/{input_filename}_resources.md
+         * step4-strategies/{input_filename}_strategies.md
+         * step5-curriculum/{input_filename}_curriculum.md
+         * step6-trends/{input_filename}_trends.md
+       - Key Topics:
+         {key_topics}
+
+    ## Consolidation Status
+    - Last Consolidated: {consolidation_date}
+    - Files Included: {files_consolidated}
+    - Location: {output_folder}/{step_folder}/consolidated.md
+
+## Processing Steps
+
+### Step 1: Initial Content Analysis
+output_format: |
+  Location: {output_folder}/step1-analysis/
+  Individual files: {input_filename}_analysis.md
+  Consolidated file: analysis.md
+  
+prompt: |
+  Analyze the transcript and extract:
+  1. Main topics covered
+  2. Key concepts explained
+  3. Technical terms used
+  4. Speaker's background/expertise
+  5. Code examples & demonstrations
+  6. Case studies & real examples
+  7. Success/failure stories
+  
+  Format as:
+  # Content Analysis
+  
+  ## Overview
+  [Standard overview format...]
+  
+  ## Consolidated Insights
+  - New insights from this content
+  - Updates to existing knowledge
+  - Contradictions or confirmations
+  
+  [Rest of the standard format...]
+
+### Step 2: Technology & Tools Extraction
+output_format: |
+  Individual files: step2-tech/{filename}_tech.md
+  Consolidated file: step2-tech/tech_stack.md
+
+prompt: |
+  Extract and categorize all mentioned:
+  [Standard prompt...]
+  
+  Additional consolidation requirements:
+  - Track technology adoption trends
+  - Note conflicting recommendations
+  - Update implementation statistics
+  
+  [Rest of the standard format...]
+
+### Step 3: Resource & Reference Compilation
+output_format: |
+  Individual files: step3-resources/{filename}_resources.md
+  Consolidated file: step3-resources/resources.md
+
+prompt: |
+  Extract and validate:
+  [Standard prompt...]
+  
+  Additional consolidation requirements:
+  - Cross-reference recommendations
+  - Update resource ratings
+  - Track mention frequency
+  
+  [Rest of the standard format...]
+
+### Step 4: Trading Strategies & Implementation
+output_format: |
+  Individual files: step4-strategies/{filename}_strategies.md
+  Consolidated file: step4-strategies/strategies.md
+
+prompt: |
+  Document in detail:
+  [Standard prompt...]
+  
+  Additional consolidation requirements:
+  - Compare strategy variations
+  - Update success metrics
+  - Track implementation challenges
+  
+  [Rest of the standard format...]
+
+### Step 5: Curriculum & Learning Path Design
+output_format: |
+  Individual files: step5-curriculum/{filename}_curriculum.md
+  Consolidated file: step5-curriculum/curriculum.md
+
+prompt: |
+  Synthesize comprehensive curriculum:
+  [Standard prompt...]
+  
+  Additional consolidation requirements:
+  - Update prerequisite relationships
+  - Track skill importance changes
+  - Adjust time estimates
+  
+  [Rest of the standard format...]
+
+### Step 6: Cross-Analysis & Trends
+output_format: |
+  Individual files: step6-trends/{filename}_trends.md
+  Consolidated file: step6-trends/trends.md
+
+prompt: |
+  Analyze patterns across all content:
+  [Standard prompt...]
+  
+  Additional consolidation requirements:
+  - Update trend trajectories
+  - Track prediction accuracy
+  - Adjust risk assessments
+  
+  [Rest of the standard format...]
+
+## Consolidation Process
+1. For each step folder:
+   - Read all individual .md files
+   - Extract unique insights
+   - Remove duplicates
+   - Update consolidated file
+   - Track changes in process_log.md
+
+2. Archive Process (if enabled):
+   ```bash
+   timestamp=$(date +%Y%m%d_%H%M%S)
+   for step in {1..6}; do
+     if [ -d "${output_folder}/step${step}-*" ]; then
+       mkdir -p "${output_folder}/step${step}-*/archive_${timestamp}"
+       mv ${output_folder}/step${step}-*/*.md !("analysis.md"|"tech_stack.md"|"resources.md"|"strategies.md"|"curriculum.md"|"trends.md") "${output_folder}/step${step}-*/archive_${timestamp}/"
+     fi
+   done
+   ```
+
+3. Validation:
+   - Verify all input files processed
+   - Check consolidated files updated
+   - Validate process log entries
+   - Confirm archive status (if enabled)
