@@ -238,3 +238,103 @@ prompt: |
    - Check consolidated files updated
    - Validate process log entries
    - Confirm archive status (if enabled)
+
+## mdBook Integration Rules
+
+### Directory Structure
+```
+./book                    # mdBook source directory
+├── FontAwesome          # Icon assets
+│   ├── css
+│   └── fonts
+├── css                  # Custom styling
+└── fonts               # Custom fonts
+
+./docs                    # Generated static site
+├── book                 # Built book content
+├── src                  # Source markdown files
+│   ├── advanced        # Advanced topics
+│   ├── bots           # Trading bot implementation
+│   ├── decentralized  # DeFi and blockchain
+│   ├── digital-assets # Digital asset topics
+│   ├── foundation     # Core concepts
+│   ├── future         # Future developments
+│   ├── infrastructure # System infrastructure
+│   ├── operations     # Operational guides
+│   ├── strategies     # Trading strategies
+│   └── theme          # Custom theming
+└── [other asset directories]
+```
+
+### Installation Guidelines
+
+⚠️ IMPORTANT: mdBook Installation Rules
+1. mdBook MUST ONLY be installed in the project root directory
+2. Installation command: `cargo install mdbook`
+3. Required version: >= 0.4.0
+4. Verify installation with: `mdbook --version`
+
+### Build and Development Rules
+1. Local Development:
+   ```bash
+   mdbook serve --open
+   ```
+   - Serves at: http://localhost:3000
+   - Auto-rebuilds on changes
+   - Opens browser automatically
+
+2. Production Build:
+   ```bash
+   mdbook build
+   ```
+   - Outputs to ./docs directory
+   - Preserves custom styling
+   - Maintains asset structure
+
+### Content Organization
+1. All markdown content MUST be placed in ./docs/src
+2. Chapter organization in SUMMARY.md
+3. Custom styling in ./docs/src/theme
+4. Assets in appropriate subdirectories
+
+### Warnings and Reminders
+⚠️ CRITICAL REMINDERS:
+1. NEVER modify the ./docs directory directly - all changes must go through mdBook build
+2. ALWAYS update SUMMARY.md when adding new content
+3. MAINTAIN the exact folder structure shown above
+4. PRESERVE all custom styling in ./book and ./docs/src/theme
+5. DO NOT remove or modify FontAwesome integration
+6. ENSURE all markdown files follow the established template
+7. VERIFY builds locally before deployment
+
+### Integration with Processing Steps
+1. Output from processing steps should be formatted for mdBook:
+   - Remove any incompatible markdown syntax
+   - Ensure proper heading hierarchy
+   - Include appropriate front matter
+   - Follow established templates
+
+2. Content Placement:
+   - Analysis results -> ./docs/src/foundation
+   - Technical details -> ./docs/src/infrastructure
+   - Strategy information -> ./docs/src/strategies
+   - Implementation guides -> ./docs/src/bots
+   - Advanced topics -> ./docs/src/advanced
+
+3. Asset Management:
+   - Place images in ./docs/src/theme/images
+   - Code samples in appropriate chapter directories
+   - External resources properly linked
+
+### Quality Control
+1. Pre-build Checks:
+   - Valid markdown syntax
+   - Proper file organization
+   - Complete SUMMARY.md entries
+   - Asset references
+   
+2. Post-build Validation:
+   - Navigation structure
+   - Asset loading
+   - Style application
+   - Mobile responsiveness
